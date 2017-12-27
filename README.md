@@ -1,7 +1,7 @@
-**DigiDraw - Camera App to Annotate Pictures (Similar to SnapChat)**
+**Label-N-Draw - Camera App to Annotate Pictures (Similar to SnapChat)**
 
 
-****You can use DigiDraw to:**** 
+****You can use Label-N-Draw to:**** 
   1. Take photos.
   2. Draw on a photo.
   3. Write text on a photo (up to three separate times).
