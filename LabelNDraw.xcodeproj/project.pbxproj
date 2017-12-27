@@ -22,6 +22,7 @@
 		5514CB6A1F76D0D900261AC7 /* AnnotateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5514CB691F76D0D900261AC7 /* AnnotateViewController.swift */; };
 		5514CB701F76DD4B00261AC7 /* DrawSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5514CB6F1F76DD4B00261AC7 /* DrawSquare.swift */; };
 		55FA51901F775473006808BD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FA518F1F775473006808BD /* Extensions.swift */; };
+		8CE731BAF7F323863C8C8CC4 /* Pods_LabelNDraw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85654F0DC474DC77292FF637 /* Pods_LabelNDraw.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -56,6 +57,7 @@
 				550278B11FEBF1DE0027581E /* CoreData.framework in Frameworks */,
 				551224C21FE87A1A001B9122 /* ColorSlider.framework in Frameworks */,
 				0D91DC99921742C389DA3F5C /* Pods_LabelNDraw.framework in Frameworks */,
+				8CE731BAF7F323863C8C8CC4 /* Pods_LabelNDraw.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
