@@ -4,10 +4,10 @@
 ****You can use Label-N-Draw to:**** 
   1. Take photos.
   2. Draw on a photo.
-  3. Write text on a photo (up to three separate times).
+  3. Add multiple text labels to an image. 
   4. Save photos inside the app or your photo library.
   5. Import photos from your photo library to use in the app.
-  6. Apply Filters to photos.
+  6. Apply filters to a photo.
   
   ***Sample Image***
   
