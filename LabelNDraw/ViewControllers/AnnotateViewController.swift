@@ -10,6 +10,7 @@ import UIKit
 import AVKit
 import ColorSlider
 import CoreData
+import Photos
 
 class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UITextViewDelegate {
     
@@ -577,6 +578,11 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         otherAlert.addAction(saveLocally)
         otherAlert.addAction(cancel)
         
+        if let popover = otherAlert.popoverPresentationController {
+            let viewForSource = sender as! UIView
+            popover.sourceView = viewForSource
+            popover.sourceRect = viewForSource.bounds
+        }
         present(otherAlert, animated: true, completion: nil)
     }
     
@@ -632,8 +638,13 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
         if let error = error {
+            let status = PHPhotoLibrary.authorizationStatus()
+            if status != PHAuthorizationStatus.authorized {
+                requestPhotoLibraryAccess()
+                return
+            }
             // Error saving image, nothing we can do but alert the user
-            let ac = UIAlertController(title: "Save error", message: error.localizedDescription, preferredStyle: .alert)
+            let ac = UIAlertController(title: "Save Error", message: error.localizedDescription, preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             DispatchQueue.main.async {
                 self.present(ac, animated: true)
@@ -646,6 +657,18 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
                 self.present(ac, animated: true)
             }
         }
+    }
+    
+    func requestPhotoLibraryAccess() {
+        PHPhotoLibrary.requestAuthorization({ (newStatus) in
+            if (newStatus != PHAuthorizationStatus.authorized) {
+                let ac = UIAlertController(title: "Access Error", message: "You will not be able to save photos to your library until you grant access. You can change this at anytime in settings.", preferredStyle: .alert)
+                ac.addAction(UIAlertAction(title: "OK", style: .default))
+                DispatchQueue.main.async {
+                    self.present(ac, animated: true)
+                }
+            }
+        })
     }
     
     // MARKER: CAPTURING THE SCREEN
