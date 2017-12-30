@@ -323,7 +323,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        if self.captureSession.isRunning {
+        if self.captureSession != nil && self.captureSession.isRunning {
             self.captureSession.stopRunning()
         }
     }

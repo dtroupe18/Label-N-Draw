@@ -10,16 +10,6 @@ import Foundation
 import UIKit
 import AVFoundation
 
-extension UIImageView {
-    
-    var imageSize: CGSize {
-        if let image = image {
-            return AVMakeRect(aspectRatio: image.size, insideRect: bounds).size
-        }
-        return CGSize.zero
-    }
-}
-
 extension Date {
     var millisecondsSince1970:Int64 {
         return Int64((self.timeIntervalSince1970 * 1000.0).rounded())

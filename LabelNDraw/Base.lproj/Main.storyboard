@@ -13,7 +13,7 @@
         <!--Camera View Controller-->
         <scene sceneID="ZjP-g4-4Nf">
             <objects>
-                <viewController id="tNR-30-XZh" customClass="CameraViewController" customModule="SnapChatCamera" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="tNR-30-XZh" customClass="CameraViewController" customModule="LabelNDraw" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Hfk-gN-NNk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -115,7 +115,7 @@
         <!--Saved Photos-->
         <scene sceneID="fRk-oa-OYw">
             <objects>
-                <viewController id="Toq-Qp-ii2" customClass="SavedPhotosViewController" customModule="SnapChatCamera" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="Toq-Qp-ii2" customClass="SavedPhotosViewController" customModule="LabelNDraw" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="adE-jb-R2m">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -130,7 +130,7 @@
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="A48-tu-SxX" customClass="ImageCell" customModule="SnapChatCamera" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ImageCell" id="A48-tu-SxX" customClass="ImageCell" customModule="LabelNDraw" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="166" height="145"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -200,12 +200,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PAV-ue-PcJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2810" y="973"/>
+            <point key="canvasLocation" x="2858" y="973"/>
         </scene>
         <!--Annotate View Controller-->
         <scene sceneID="Z42-bX-K2m">
             <objects>
-                <viewController id="NDq-6K-ad5" customClass="AnnotateViewController" customModule="SnapChatCamera" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="NDq-6K-ad5" customClass="AnnotateViewController" customModule="LabelNDraw" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WPD-wS-E9d">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -454,6 +454,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="oNT-Rc-DPh"/>
-        <segue reference="bBv-d6-Lgb"/>
+        <segue reference="4RD-Fs-K7x"/>
     </inferredMetricsTieBreakers>
 </document>
