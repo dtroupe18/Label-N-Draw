@@ -529,6 +529,9 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     
     // ALLOWS MULTIPLE GESTURES AT THE SAME TIME
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        if (gestureRecognizer is UIPinchGestureRecognizer || gestureRecognizer is UISwipeGestureRecognizer) && (otherGestureRecognizer is UIPinchGestureRecognizer || otherGestureRecognizer is UISwipeGestureRecognizer) {
+            return false
+        }
         return true
     }
     
@@ -634,6 +637,7 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         let entity = Image(context: context)
         entity.filePath = relativePath
         appDelegate.saveContext()
+        showImageSavedAlert()
     }
     
     @objc func image(_ image: UIImage, didFinishSavingWithError error: Error?, contextInfo: UnsafeRawPointer) {
@@ -651,11 +655,15 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
             }
         }
         else {
-            let ac = UIAlertController(title: "Image Saved", message: "Your image was successfully saved", preferredStyle: .alert)
-            ac.addAction(UIAlertAction(title: "OK", style: .default))
-            DispatchQueue.main.async {
-                self.present(ac, animated: true)
-            }
+            showImageSavedAlert()
+        }
+    }
+    
+    private func showImageSavedAlert() {
+        let ac = UIAlertController(title: "Image Saved", message: "Your image was successfully saved", preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        DispatchQueue.main.async {
+            self.present(ac, animated: true)
         }
     }
     
