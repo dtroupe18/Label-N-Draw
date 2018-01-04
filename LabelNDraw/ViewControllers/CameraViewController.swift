@@ -103,7 +103,7 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                 
                 switch UIDevice.current.orientation {
                 case .portrait:
-                    pictureOrientation = .up
+                    pictureOrientation = .right
                     break
                     
                 case .portraitUpsideDown:
@@ -120,9 +120,13 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     }
                     
                 case .landscapeRight:
-                    pictureOrientation = .up
-                    break
-                    
+                    if self.usingBackCamera {
+                        pictureOrientation = .down
+                        break
+                    }
+                    else {
+                        pictureOrientation = .up
+                    }
                 default:
                     pictureOrientation = .up
                     break
