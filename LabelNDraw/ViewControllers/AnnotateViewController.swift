@@ -120,7 +120,15 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         // 2. Add some space at the top
         // 3. Give it a fixed size
         colorSlider.widthAnchor.constraint(equalToConstant: 12).isActive = true
-        colorSlider.heightAnchor.constraint(equalToConstant: 290).isActive = true
+        let heightCon = colorSlider.heightAnchor.constraint(lessThanOrEqualToConstant: 290)
+        heightCon.priority = UILayoutPriority(rawValue: 1000)
+        heightCon.isActive = true
+        
+        // colorSlider.heightAnchor.constraint(equalToConstant: 290).isActive = true
+        let bottomCon = NSLayoutConstraint(item: colorSlider, attribute: .bottom, relatedBy: .equal, toItem: self.imageView, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        bottomCon.priority = UILayoutPriority(rawValue: 500)
+        bottomCon.isActive = true
+        
         NSLayoutConstraint(item: colorSlider, attribute: .centerX, relatedBy: NSLayoutRelation.equal, toItem: drawButton, attribute: .centerX, multiplier: 1.0, constant: 1.0).isActive = true
         NSLayoutConstraint(item: colorSlider, attribute: .top, relatedBy: .equal, toItem: drawButton, attribute: .bottom, multiplier: 1.0, constant: 15.0).isActive = true
     }
