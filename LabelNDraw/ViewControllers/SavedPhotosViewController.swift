@@ -211,6 +211,20 @@ class SavedPhotosViewController: UIViewController, UICollectionViewDelegate, UIC
         }
     }
     
+    // Marker: Orientation Change
+    // recalculate cell size on orientation change
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        guard let flow = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout else {
+            return
+        }
+        flow.invalidateLayout()
+        flow.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0)
+        let width = UIScreen.main.bounds.size.width
+        flow.itemSize = CGSize(width: width / 3.0, height: width / 3.0)
+        flow.minimumInteritemSpacing = 0
+        flow.minimumLineSpacing = 0
+    }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "toAnnotateFromSavedPhotos" {

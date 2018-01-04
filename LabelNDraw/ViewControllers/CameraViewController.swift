@@ -99,7 +99,39 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation() {
             DispatchQueue.main.async {
-                self.imageCaptured = UIImage(data: imageData)
+                var pictureOrientation: UIImageOrientation?
+                
+                switch UIDevice.current.orientation {
+                case .portrait:
+                    pictureOrientation = .up
+                    break
+                    
+                case .portraitUpsideDown:
+                    pictureOrientation = .left
+                    break
+                    
+                case .landscapeLeft:
+                    if self.usingBackCamera {
+                        pictureOrientation = .up
+                        break
+                    }
+                    else {
+                        pictureOrientation = .down
+                    }
+                    
+                case .landscapeRight:
+                    pictureOrientation = .up
+                    break
+                    
+                default:
+                    pictureOrientation = .up
+                    break
+                }
+                
+                let image = UIImage(data: imageData)
+                let imageTurned = UIImage(cgImage: image!.cgImage!, scale: CGFloat(1.0), orientation: pictureOrientation!)
+                // self.imageCaptured = UIImage(data: imageData)
+                self.imageCaptured = imageTurned
                 self.captureSession.stopRunning()
                 self.performSegue(withIdentifier: "toAnnotate", sender: nil)
             }
@@ -326,6 +358,48 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         if self.captureSession != nil && self.captureSession.isRunning {
             self.captureSession.stopRunning()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if UIDevice.current.orientation != .portrait {
+            fixCameraOrientation()
+        }
+    }
+    
+    private func fixCameraOrientation() {
+        DispatchQueue.main.async {
+            if let connection =  self.previewLayer?.connection  {
+                let currentDevice: UIDevice = UIDevice.current
+                let orientation: UIDeviceOrientation = currentDevice.orientation
+                let previewLayerConnection : AVCaptureConnection = connection
+                
+                if (previewLayerConnection.isVideoOrientationSupported) {
+                    switch (orientation) {
+                    case .portrait:
+                        previewLayerConnection.videoOrientation = AVCaptureVideoOrientation.portrait
+                        break
+                    case .landscapeRight:
+                        previewLayerConnection.videoOrientation = AVCaptureVideoOrientation.landscapeLeft
+                        break
+                    case .landscapeLeft:
+                        previewLayerConnection.videoOrientation = AVCaptureVideoOrientation.landscapeRight
+                        break
+                    case .portraitUpsideDown:
+                        previewLayerConnection.videoOrientation = AVCaptureVideoOrientation.portraitUpsideDown
+                        break
+                    default:
+                        previewLayerConnection.videoOrientation = AVCaptureVideoOrientation.portrait
+                        break
+                    }
+                }
+            }
+        }
+    }
+    
+    // Marker: Handle Orientation change
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        fixCameraOrientation()
     }
 }
 
