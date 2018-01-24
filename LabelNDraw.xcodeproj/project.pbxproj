@@ -22,6 +22,7 @@
 		5514CB6A1F76D0D900261AC7 /* AnnotateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5514CB691F76D0D900261AC7 /* AnnotateViewController.swift */; };
 		5514CB701F76DD4B00261AC7 /* DrawSquare.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5514CB6F1F76DD4B00261AC7 /* DrawSquare.swift */; };
 		55FA51901F775473006808BD /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FA518F1F775473006808BD /* Extensions.swift */; };
+		55FB08B12017FF88008A5DF1 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55FB08B02017FF88008A5DF1 /* Helper.swift */; };
 		8CE731BAF7F323863C8C8CC4 /* Pods_LabelNDraw.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85654F0DC474DC77292FF637 /* Pods_LabelNDraw.framework */; };
 /* End PBXBuildFile section */
 
@@ -43,6 +44,7 @@
 		5514CB691F76D0D900261AC7 /* AnnotateViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotateViewController.swift; sourceTree = "<group>"; };
 		5514CB6F1F76DD4B00261AC7 /* DrawSquare.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DrawSquare.swift; sourceTree = "<group>"; };
 		55FA518F1F775473006808BD /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		55FB08B02017FF88008A5DF1 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		592AC3AF7A2CF84850F48B70 /* Pods-LabelNDraw.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-LabelNDraw.release.xcconfig"; path = "Pods/Target Support Files/Pods-LabelNDraw/Pods-LabelNDraw.release.xcconfig"; sourceTree = "<group>"; };
 		85654F0DC474DC77292FF637 /* Pods_LabelNDraw.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_LabelNDraw.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		859A804FEB0C45A5B5DDAA64 /* Pods_SnapChatCamera.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = Pods_SnapChatCamera.framework; path = "../../../../../../../../../Users/Dave/Library/Developer/Xcode/DerivedData/SnapChatCamera-eivrgjwulyyfscdxusthapnnsiyi/Build/Products/Debug-iphoneos/Pods_SnapChatCamera.framework"; sourceTree = SDKROOT; };
@@ -94,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				55FA518F1F775473006808BD /* Extensions.swift */,
+				55FB08B02017FF88008A5DF1 /* Helper.swift */,
 			);
 			path = Extras;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 				5514CB701F76DD4B00261AC7 /* DrawSquare.swift in Sources */,
 				550278AB1FEB3F790027581E /* ImageCell.swift in Sources */,
 				550278B31FEDEC470027581E /* SavedImage.swift in Sources */,
+				55FB08B12017FF88008A5DF1 /* Helper.swift in Sources */,
 				5514CB561F7098DA00261AC7 /* AppDelegate.swift in Sources */,
 				5514CB681F709A4400261AC7 /* CameraViewController.swift in Sources */,
 			);

@@ -32,6 +32,12 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     @IBOutlet weak var tvTwo: UITextView!
     @IBOutlet weak var tvThree: UITextView!
     
+    // Values to reset textview to the center of the view
+    var centerX: CGFloat?
+    var centerY: CGFloat?
+    
+    // TextView font size starting value to reset
+    var startingFontSize: CGFloat?
     
     // TextView Wrappers
     @IBOutlet weak var wrapperOne: UIView!
@@ -158,6 +164,7 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     private func displaySlider() {
         if swipeCount != 0 {
             slider.isHidden = false
+            self.slider.value = Float(self.imageView.alpha)
         }
         else {
             slider.isHidden = true
@@ -194,7 +201,7 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     // Flip the drawbutton image so the user knows if they are drawing
     private func changePencilImage() {
         if drawing {
-            drawButton.setBackgroundImage(#imageLiteral(resourceName: "BlackPencil"), for: .normal)
+            drawButton.setBackgroundImage(#imageLiteral(resourceName: "GrayPencil"), for: .normal)
         }
         else {
             drawButton.setBackgroundImage(#imageLiteral(resourceName: "Pencil"), for: .normal)
@@ -232,7 +239,8 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     }
     
     
-    // all drawing has to occur on an image without an applied filter (i.e. the original image)
+    // All drawing has to occur on an image without an applied filter (i.e. the original image)
+    //
     func drawLineFrom(fromPoint: CGPoint, toPoint: CGPoint) {
         UIGraphicsBeginImageContextWithOptions(topImageView.bounds.size, false, 0.0)
         topImageView.image?.draw(in: imageView.frame)
@@ -259,7 +267,8 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         }
     }
     
-    //MARKER: UNDO DRAWING
+    // Undo Drawing
+    //
     @IBAction func undoPressed(_ sender: Any) {
         if !previousDrawings.isEmpty {
             previousDrawings.remove(at: previousDrawings.count - 1)
@@ -267,7 +276,8 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
                 topImageView.image = lastDrawing
             }
             else {
-                // empty
+                // Empty
+                //
                 topImageView.image = nil
             }
         }
@@ -275,12 +285,8 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     
     @IBAction func addText(_ sender: Any) {
         drawing = false
-        // swipeLeft.isEnabled = true
-        // swipeRight.isEnabled = true ?? False ??
         undoButton.isHidden = true
         trashButton.isHidden = false
-        
-        //QWE
         
         if wrapperOne.isHidden {
             wrapperOne.isHidden = false
@@ -303,21 +309,54 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     }
     
     @IBAction func trashPressed(_ sender: Any) {
+        // When the trash is pressed a textview is hidden from the screen
+        // it's position is reset to the center
+        // font size is reset to the starting size
+        // and any rotation is also removed
+        //
         if activeTextView.tag == 11 {
             tvOne.text = ""
             wrapperOne.isHidden = true
+            wrapperOne.transform = CGAffineTransform(rotationAngle: 0)
+            
+            // if these values are nil the textview wasn't moved
+            if let x = self.centerX, let y = self.centerY {
+                wrapperOneCenterX.constant = x
+                wrapperOneCenterY.constant = y
+            }
+            if let size = startingFontSize {
+                self.tvOne.font = UIFont.systemFont(ofSize: size)
+            }
         }
         else if activeTextView.tag == 12 {
             tvTwo.text = ""
             wrapperTwo.isHidden = true
+            wrapperTwo.transform = CGAffineTransform(rotationAngle: 0)
+            
+            if let x = self.centerX, let y = self.centerY {
+                wrapperTwoCenterX.constant = x
+                wrapperTwoCenterY.constant = y
+            }
+            if let size = startingFontSize {
+                self.tvTwo.font = UIFont.systemFont(ofSize: size)
+            }
         }
         else if activeTextView.tag == 13 {
             tvThree.text = ""
             wrapperThree.isHidden = true
+            wrapperThree.transform = CGAffineTransform(rotationAngle: 0)
+            
+            if let x = self.centerX, let y = self.centerY {
+                wrapperThreeCenterX.constant = x
+                wrapperThreeCenterY.constant = y
+            }
+            if let size = startingFontSize {
+                self.tvThree.font = UIFont.systemFont(ofSize: size)
+            }
         }
     }
     
-    // MARKER: GESTURE RECOGNIZERS
+    // Marker: Gesture Recognizers
     func createGestureRecognizers() {
         // Pan Gestures
         let wrapperOnePanGesture = UIPanGestureRecognizer(target: self, action: #selector(self.handlePanGesture(recognizer:)))
@@ -503,6 +542,17 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     // TEXTFIELD PAN GESTURES HANDLED HERE
     @objc func handlePanGesture(recognizer: UIPanGestureRecognizer) {
         if let uiView = recognizer.view {
+            
+            if self.centerX == nil || self.centerY == nil {
+                // save the original values to reset the position
+                // when the trash button is pressed. All textviews
+                // start in the same spot so we only need to save
+                // this one time.
+                //
+                self.centerX = wrapperOneCenterX.constant
+                self.centerY = wrapperOneCenterY.constant
+            }
+            
             var translation = recognizer.translation(in: self.view)
             
             translation.x = max(translation.x, imageView.frame.minX - uiView.frame.minX)
@@ -535,8 +585,11 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         }
     }
     
-    // ALLOWS MULTIPLE GESTURES AT THE SAME TIME
+    // Allow multiple gestures at the same time
+    //
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        // Prevent pinch and swipe from firing at the same time
+        //
         if (gestureRecognizer is UIPinchGestureRecognizer || gestureRecognizer is UISwipeGestureRecognizer) && (otherGestureRecognizer is UIPinchGestureRecognizer || otherGestureRecognizer is UISwipeGestureRecognizer) {
             return false
         }
@@ -548,14 +601,23 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         return true
     }
     
-    // KEEP TRACK OF THE LAST TOUCHED TEXTVIEW
     func textViewDidBeginEditing(_ textView: UITextView) {
+        // Keep track of the last touched textView
+        //
         activeTextView = textView
         swipeLeft.isEnabled = false
         swipeRight.isEnabled = false
         
+        // the position of the slider should also be set to the current alpha value
+        // of that textView
+        //
+        if let value = self.activeTextView.backgroundColor?.cgColor.alpha {
+            self.slider.value = Float(value)
+        }
+        
         // if a textview is touched and becomes first responder than
         // the trash icon should be displayed
+        //
         trashButton.isHidden = false
         slider.isHidden = false
     }
@@ -571,7 +633,8 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         }
     }
     
-    // MARKER: SAVING IMAGE
+    // Marker: Saving Image
+    //
     @IBAction func savePressed(_ sender: Any) {
         let otherAlert = UIAlertController(title: "Save Photo", message: "Where would you like to save this photo?", preferredStyle: UIAlertControllerStyle.actionSheet)
         
@@ -585,6 +648,7 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         let cancel = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
         
         // relate actions to controllers
+        //
         otherAlert.addAction(saveToLibrary)
         otherAlert.addAction(saveLocally)
         otherAlert.addAction(cancel)
@@ -606,8 +670,10 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         
         // check if a file already exists at this path
         // this should never happen, but just to be safe
+        //
         if fileManager.fileExists(atPath: filePath.path) {
             // remove the file
+            //
             do {
                 try fileManager.removeItem(atPath: filePath.path)
                 saveImageToDisk(filePath: filePath, relativePath: relativePath)
@@ -618,6 +684,7 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         }
         else {
             // we can save right away
+            //
             saveImageToDisk(filePath: filePath, relativePath: relativePath)
             
         }
@@ -639,7 +706,15 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     
     private func saveToCoreData(relativePath: String) {
         // App Delegate For CoreData
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        //
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else {
+            let ac = UIAlertController(title: "Save Error", message: "This was an error saving your image please try again.", preferredStyle: .alert)
+            ac.addAction(UIAlertAction(title: "OK", style: .default))
+            DispatchQueue.main.async {
+                self.present(ac, animated: true)
+            }
+            return
+        }
         let container = appDelegate.persistentContainer
         let context = container.viewContext
         let entity = Image(context: context)
@@ -656,6 +731,7 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
                 return
             }
             // Error saving image, nothing we can do but alert the user
+            //
             let ac = UIAlertController(title: "Save Error", message: error.localizedDescription, preferredStyle: .alert)
             ac.addAction(UIAlertAction(title: "OK", style: .default))
             DispatchQueue.main.async {
@@ -689,6 +765,12 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     
     // MARKER: CAPTURING THE SCREEN
     private func captureScreen() -> UIImage? {
+        // Add the "drawing" first so that any text that is written on the
+        // image appears on top of the drawing
+        //
+        if topImageView.image != nil {
+            imageView.addSubview(topImageView)
+        }
         if !wrapperOne.isHidden {
             imageView.addSubview(wrapperOne)
         }
@@ -698,9 +780,7 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         if !wrapperThree.isHidden {
             imageView.addSubview(wrapperThree)
         }
-        if topImageView.image != nil {
-            imageView.addSubview(topImageView)
-        }
+        
         colorSlider.isHidden = true
         UIGraphicsBeginImageContextWithOptions(imageView.bounds.size, false, 0.0)
         let context = UIGraphicsGetCurrentContext()
@@ -729,11 +809,23 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         tvThree.isHidden = true
         tvThree.delegate = self
 
-
         tvOne.isMultipleTouchEnabled = true
         tvTwo.isMultipleTouchEnabled = true
         tvThree.isMultipleTouchEnabled = true
         imageView.isMultipleTouchEnabled = true
+        
+        if UIDevice.current.userInterfaceIdiom == .pad {
+            startingFontSize = CGFloat(30)
+        }
+        else {
+            startingFontSize = CGFloat(20)
+        }
+        
+        if let size = startingFontSize {
+            self.tvOne.font = UIFont.systemFont(ofSize: size)
+            self.tvTwo.font = UIFont.systemFont(ofSize: size)
+            self.tvThree.font = UIFont.systemFont(ofSize: size)
+        }
         
         drawing = false
         createGestureRecognizers()
@@ -745,8 +837,4 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         // Dispose of any resources that can be recreated.
     }
     
-    // comment to update git
 }
-
-
-

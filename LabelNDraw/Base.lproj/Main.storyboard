@@ -6,6 +6,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -288,13 +289,13 @@
                                 </connections>
                             </slider>
                             <view tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1xt-lr-C9e">
-                                <rect key="frame" x="182" y="352" width="50" height="33"/>
+                                <rect key="frame" x="182" y="277.33333333333331" width="50" height="34"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="11" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zrP-V3-v1Z">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="33"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="34"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
                                     </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -308,13 +309,13 @@
                                 </constraints>
                             </view>
                             <view tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IKp-23-EiI">
-                                <rect key="frame" x="182" y="352" width="50" height="33"/>
+                                <rect key="frame" x="182" y="277.33333333333331" width="50" height="34"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="12" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="DuH-8Y-fT7">
-                                        <rect key="frame" x="0.66666666666665719" y="0.0" width="50" height="33"/>
+                                        <rect key="frame" x="0.66666666666665719" y="0.0" width="50" height="34"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
                                     </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -328,13 +329,13 @@
                                 </constraints>
                             </view>
                             <view tag="3" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5H4-yK-vKT">
-                                <rect key="frame" x="182" y="352" width="50" height="33"/>
+                                <rect key="frame" x="182" y="277.33333333333331" width="50" height="34"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" tag="13" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="qWv-oo-lPP">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="33"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="34"/>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
                                     </textView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -364,14 +365,14 @@
                             <constraint firstItem="UGW-DA-K2P" firstAttribute="leading" secondItem="WPD-wS-E9d" secondAttribute="leadingMargin" constant="10" id="Bbj-V1-Nhm"/>
                             <constraint firstItem="MXP-kY-UDP" firstAttribute="leading" secondItem="WPD-wS-E9d" secondAttribute="leadingMargin" constant="8" id="EJF-Fi-TJA"/>
                             <constraint firstItem="kCF-2o-5Xr" firstAttribute="top" secondItem="WPD-wS-E9d" secondAttribute="top" id="ELW-rx-A7y"/>
-                            <constraint firstItem="1xt-lr-C9e" firstAttribute="centerY" secondItem="WPD-wS-E9d" secondAttribute="centerY" id="FE5-u4-7kI"/>
+                            <constraint firstItem="1xt-lr-C9e" firstAttribute="centerY" secondItem="WPD-wS-E9d" secondAttribute="centerY" multiplier="0.8" id="FE5-u4-7kI"/>
                             <constraint firstItem="MXP-kY-UDP" firstAttribute="top" secondItem="Ixk-uG-slC" secondAttribute="top" id="IaV-0b-kTc"/>
                             <constraint firstItem="nE6-1S-5SM" firstAttribute="bottom" secondItem="UGW-DA-K2P" secondAttribute="bottom" constant="10" id="Irl-QP-oLn"/>
                             <constraint firstItem="pcH-mq-L9V" firstAttribute="leading" secondItem="MXP-kY-UDP" secondAttribute="trailing" constant="20" id="KO2-Gc-mn0"/>
                             <constraint firstItem="5H4-yK-vKT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="nE6-1S-5SM" secondAttribute="leading" priority="750" constant="8" id="Lre-rI-0ah"/>
                             <constraint firstItem="kCF-2o-5Xr" firstAttribute="bottom" secondItem="nE6-1S-5SM" secondAttribute="bottom" id="OaU-ey-nWD"/>
                             <constraint firstItem="Ixk-uG-slC" firstAttribute="top" secondItem="nE6-1S-5SM" secondAttribute="top" constant="20" id="R3M-4d-Wjv"/>
-                            <constraint firstItem="IKp-23-EiI" firstAttribute="centerY" secondItem="WPD-wS-E9d" secondAttribute="centerY" id="RwK-Fe-GDC"/>
+                            <constraint firstItem="IKp-23-EiI" firstAttribute="centerY" secondItem="WPD-wS-E9d" secondAttribute="centerY" multiplier="0.8" id="RwK-Fe-GDC"/>
                             <constraint firstItem="kCF-2o-5Xr" firstAttribute="trailing" secondItem="nE6-1S-5SM" secondAttribute="trailing" id="SMU-e7-QnR"/>
                             <constraint firstItem="nE6-1S-5SM" firstAttribute="trailing" secondItem="F3f-ah-eCf" secondAttribute="trailing" id="Sa6-Lg-2lz"/>
                             <constraint firstItem="nE6-1S-5SM" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="1xt-lr-C9e" secondAttribute="trailing" priority="750" constant="8" id="UQL-g2-j9H"/>
@@ -381,7 +382,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="Ixk-uG-slC" secondAttribute="trailing" constant="8" id="pLN-do-UoC"/>
                             <constraint firstItem="pcH-mq-L9V" firstAttribute="centerY" secondItem="Ixk-uG-slC" secondAttribute="centerY" id="qCS-Ia-tn5"/>
                             <constraint firstItem="IKp-23-EiI" firstAttribute="centerX" secondItem="WPD-wS-E9d" secondAttribute="centerX" id="qI0-ZE-PtJ"/>
-                            <constraint firstItem="5H4-yK-vKT" firstAttribute="centerY" secondItem="WPD-wS-E9d" secondAttribute="centerY" id="qzx-V3-T2I"/>
+                            <constraint firstItem="5H4-yK-vKT" firstAttribute="centerY" secondItem="WPD-wS-E9d" secondAttribute="centerY" multiplier="0.8" id="qzx-V3-T2I"/>
                             <constraint firstItem="84k-Mm-orf" firstAttribute="top" secondItem="Ixk-uG-slC" secondAttribute="bottom" constant="15" id="rEf-0u-84Y"/>
                             <constraint firstItem="Ixk-uG-slC" firstAttribute="leading" secondItem="EU9-0r-zEo" secondAttribute="trailing" constant="10" id="rfz-cM-FJ6"/>
                             <constraint firstItem="kCF-2o-5Xr" firstAttribute="leading" secondItem="nE6-1S-5SM" secondAttribute="leading" id="sKw-ya-FR0"/>
