@@ -23,6 +23,7 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     @IBOutlet weak var textButton: UIButton!
     @IBOutlet weak var deleteButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var drawButton: UIButton!
     @IBOutlet weak var undoButton: UIButton!
     @IBOutlet weak var trashButton: UIButton!
@@ -633,6 +634,26 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         }
     }
     
+    @IBAction func sharePressed(_ sender: UIButton) {
+        DispatchQueue.main.async {
+            // Allow the user to send their image directly from the app
+            //
+            if let image = self.captureScreen() {
+                // Set up activity view controller
+                //
+                let imageToShare = [image]
+                let activityViewController = UIActivityViewController(activityItems: imageToShare, applicationActivities: nil)
+                // Prevent crash on iPads
+                //
+                activityViewController.popoverPresentationController?.sourceView = self.shareButton
+                self.present(activityViewController, animated: true, completion: nil)
+                
+            } else {
+                self.showAlert(title: "Error", message: "There was an error getting your image. Please try again.")
+            }
+        }
+    }
+    
     // Marker: Saving Image
     //
     @IBAction func savePressed(_ sender: Any) {
@@ -640,6 +661,7 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
         
         let saveToLibrary = UIAlertAction(title: "Photo Library", style: UIAlertActionStyle.default) { _ in
             if let imageToSave = self.captureScreen() {
+                ReviewHelper.incrementSavedImageCount()
                 UIImageWriteToSavedPhotosAlbum(imageToSave, self, #selector(self.image(_:didFinishSavingWithError:contextInfo:)), nil)
             }
         }
@@ -662,6 +684,7 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     }
     
     func savePhotoInApp(alert: UIAlertAction) {
+        ReviewHelper.incrementSavedImageCount()
         let fileManager = FileManager.default
         let documentsURL = fileManager.urls(for: .documentDirectory, in: .userDomainMask).first!
         let time = Date().millisecondsSince1970
@@ -745,7 +768,12 @@ class AnnotateViewController: UIViewController, UIGestureRecognizerDelegate, UIT
     
     private func showImageSavedAlert() {
         let ac = UIAlertController(title: "Image Saved", message: "Your image was successfully saved", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        let okAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
+            // Once the user clicks ok check if they should review the app
+            //
+            ReviewHelper.checkAndAskForReview()
+        })
+        ac.addAction(okAction)
         DispatchQueue.main.async {
             self.present(ac, animated: true)
         }

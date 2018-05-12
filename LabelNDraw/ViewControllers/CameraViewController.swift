@@ -18,7 +18,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     @IBOutlet weak var photoLibraryButton: UIButton!
     @IBOutlet weak var switchCameraButton: UIButton!
     
-    
     var captureSession: AVCaptureSession!
     var backCamera: AVCaptureDevice!
     var frontCamera: AVCaptureDevice!
@@ -32,43 +31,31 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     var cameraOutput: AVCapturePhotoOutput!
     var previewLayer: AVCaptureVideoPreviewLayer!
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        DispatchQueue.main.async {
-            self.navigationController?.setNavigationBarHidden(true, animated: false)
-            self.navigationController?.setToolbarHidden(true, animated: false)
-        }
+        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.setToolbarHidden(true, animated: false)
         canAccessCamera()
     }
     
     @IBAction func changeFlash(_ sender: Any) {
-        flashOn = !flashOn
-        if flashOn {
-            self.flashButton.setImage(#imageLiteral(resourceName: "FlashOn"), for: .normal)
-        }
-        else {
-            self.flashButton.setImage(#imageLiteral(resourceName: "FlashOff"), for: .normal)
-        }
-        toggleTorch()
-    }
-    
-    func toggleTorch() {
         if backCamera == nil {
             return
         }
         
-        if backCamera.hasTorch {
+        if usingBackCamera && backCamera.hasTorch {
+            flashOn = !flashOn
             do {
                 try backCamera.lockForConfiguration()
                 
                 if flashOn {
                     backCamera.torchMode = .on
+                    flashButton.setImage(#imageLiteral(resourceName: "FlashOff"), for: .normal)
                 }
                 else {
                     backCamera.torchMode = .off
+                    flashButton.setImage(#imageLiteral(resourceName: "FlashOn"), for: .normal)
                 }
-                
                 backCamera.unlockForConfiguration()
             } catch {
                 print("Torch could not be used")
@@ -95,7 +82,8 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         }
     }
     
-    // delgate method
+    // Delgate method
+    //
     func photoOutput(_ output: AVCapturePhotoOutput, didFinishProcessingPhoto photo: AVCapturePhoto, error: Error?) {
         if let imageData = photo.fileDataRepresentation() {
             DispatchQueue.main.async {
@@ -206,7 +194,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
     func canAccessCamera() {
         AVCaptureDevice.requestAccess(for: AVMediaType.video) { response in
             if response {
-                // print("can access camera")
                 self.loadCamera()
                 
             } else {
@@ -241,7 +228,6 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
                     self.frontCamera = device
                 }
             }
-            
             
             do {
                 self.captureDeviceInputBack = try AVCaptureDeviceInput(device: self.backCamera)
@@ -282,6 +268,9 @@ class CameraViewController: UIViewController, AVCapturePhotoCaptureDelegate {
         else {
             displayFrontCamera()
             switchCameraButton.setImage(#imageLiteral(resourceName: "RearCamera"), for: .normal)
+            // The torch will automatically be disabled when we switch to the front camera
+            //
+            flashButton.setImage(#imageLiteral(resourceName: "FlashOn"), for: .normal)
         }
     }
     
